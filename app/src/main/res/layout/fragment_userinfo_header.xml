@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlUserProfileInfo"
+        android:paddingBottom="2dp">
+
+        <FrameLayout
+            android:id="@+id/flProfileImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:id="@+id/ivUserProfileBackgroundImage"
+                android:src="@drawable/striped"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/ivUserProfileImage"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="70dp"
+                android:src="@android:drawable/screen_background_light_transparent"/>
+        </FrameLayout>
+<!--
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:id="@+id/ivUserProfileImage"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@android:drawable/screen_background_light_transparent"/>
+    -->
+        <TextView
+            android:id="@+id/tvUserFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flProfileImage"
+            android:text="@string/name"
+            android:paddingLeft="4dp"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+    
+        <TextView
+            android:id="@+id/tvUserTagLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tvUserFullName"
+            android:layout_below="@id/tvUserFullName"
+            android:text="@string/tagline"
+            android:paddingLeft="4dp"
+            android:textSize="12sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/rlUserProfileInfo">
+    
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvProfileFollowers"
+            android:text="@string/user_profile_followers"
+            android:paddingLeft="4dp"
+            android:onClick="showFollowers"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvProfileFollowing"
+            android:text="@string/user_profile_following"
+            android:layout_marginLeft="20dp"
+            android:onClick="showFollowing"/>
+    </LinearLayout>
+
+</RelativeLayout>

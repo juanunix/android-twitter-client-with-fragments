@@ -2,10 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--
     <item
         android:id="@+id/miCompose"
         android:icon="@mipmap/ic_tweet"
         app:showAsAction="always"
-        android:title="Compose">
+        android:title="@string/compose">
     </item>
+    -->
+    <item
+        android:id="@+id/messages"
+        app:showAsAction="ifRoom"
+        android:title="@string/message"
+        android:icon="@drawable/ic_message"
+        android:onClick="onMessageClick"/>
+
+    <item
+        android:id="@+id/userProfile"
+        app:showAsAction="ifRoom"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_profile"
+        android:onClick="onProfileClick"/>
+    <item
+        android:id="@+id/tweetSearch"
+        app:showAsAction="ifRoom"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_search_timeline"
+        android:onClick="onSearchClick"/>
 </menu>

@@ -79,7 +79,7 @@ public class ComposeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.compose, menu);
+        //getMenuInflater().inflate(R.menu.compose, menu);
         return true;
     }
 
@@ -87,7 +87,7 @@ public class ComposeActivity extends AppCompatActivity {
     public void sendTweet(View view) {
         String tweetText = mEditTextComposeBody.getText().toString();
 
-        mTwitterClient.sendTweet(tweetText, new TextHttpResponseHandler() {
+        mTwitterClient.sendTweet( "", false, tweetText, new TextHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Tweet composeTweet = new Tweet();

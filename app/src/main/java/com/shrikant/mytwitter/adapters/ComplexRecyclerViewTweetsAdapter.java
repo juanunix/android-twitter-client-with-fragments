@@ -1,9 +1,9 @@
 package com.shrikant.mytwitter.adapters;
 
-import com.bumptech.glide.Glide;
 import com.shrikant.mytwitter.R;
 import com.shrikant.mytwitter.tweetmodels.Tweet;
 import com.shrikant.mytwitter.utils.Util;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author Shrikant Pandhare
  */
-public class ComplexRecyclerViewArticleAdapter
+public class ComplexRecyclerViewTweetsAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     // The items to display in your RecyclerView
@@ -28,7 +28,7 @@ public class ComplexRecyclerViewArticleAdapter
     private final int TEXTONLY = 0, TEXT_PLUS_IMAGE = 1;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ComplexRecyclerViewArticleAdapter(Context context, LinkedList<Tweet> tweets) {
+    public ComplexRecyclerViewTweetsAdapter(Context context, LinkedList<Tweet> tweets) {
         this.sTweets = tweets;
         mContext = context;
     }
@@ -63,6 +63,7 @@ public class ComplexRecyclerViewArticleAdapter
                 View v1 = inflater.inflate(R.layout.view_template_textonly_tweet,
                         viewGroup, false);
                 viewHolder = new TextOnlyTweetViewHolder(mContext, v1, sTweets);
+
                 break;
             case TEXT_PLUS_IMAGE:
                 View v2 = inflater.inflate(R.layout.view_template_image_tweet,
@@ -75,6 +76,7 @@ public class ComplexRecyclerViewArticleAdapter
                 viewHolder = new ImageTextTweetViewHolder(mContext, v2, sTweets);
                 break;
         }
+
         return viewHolder;
     }
 
@@ -104,15 +106,23 @@ public class ComplexRecyclerViewArticleAdapter
         viewHolder.mTextViewTweetTextOnly.setText(tweet.getText());
         viewHolder.mTextViewUserName.setText(tweet.getUser().getUserName());
         viewHolder.mTextViewTwitterHandle.setText( "@" + tweet.getUser().getTwitterHandle());
+        viewHolder.mImageViewProfileImage.setTag(tweet.getUser().getTwitterHandle());
+        viewHolder.mImageViewReplyToTweet.setTag(tweet.getIdStr() + "@" +
+                tweet.getUser().getTwitterHandle());
+
+        viewHolder.mImageViewReTweet.setTag(tweet.getIdStr());
+        viewHolder.mImageViewLike.setTag(tweet.getIdStr());
 
         if (!TextUtils.isEmpty(tweet.getUser().getProfileImageUrl())) {
-            Glide.with(mContext).load(tweet.getUser().getProfileImageUrl())
+            Picasso.with(mContext).load(tweet.getUser().getProfileImageUrl())
                     .placeholder(R.mipmap.ic_wifi)
-                    .fitCenter()
+                    //.fitCenter()
                     .into(viewHolder.mImageViewProfileImage);
         }
 
         viewHolder.mTextViewTimeSend.setText(Util.getRelativeTimeAgo(tweet.getCreated_at()));
+        viewHolder.mTextViewRetweets.setText(tweet.getRetweet_count());
+        viewHolder.mTextViewLikes.setText(tweet.getFavourite_count());
     }
 
     private void configureImageTextTweetViewHolder(ImageTextTweetViewHolder viewHolder,
@@ -125,7 +135,7 @@ public class ComplexRecyclerViewArticleAdapter
         if (tweet.getMedia_type().equals("photo")) {
 
             if (!TextUtils.isEmpty(tweet.getMedia_url())) {
-                Glide.with(mContext).load(tweet.getMedia_url())
+                Picasso.with(mContext).load(tweet.getMedia_url())
                         .placeholder(R.mipmap.ic_wifi)
                         .into(viewHolder.mImageViewTweetImage);
             }
@@ -134,13 +144,21 @@ public class ComplexRecyclerViewArticleAdapter
         viewHolder.mTextViewTwitterHandle.setText( "@" + tweet.getUser().getTwitterHandle());
 
         if (!TextUtils.isEmpty(tweet.getUser().getProfileImageUrl())) {
-            Glide.with(mContext).load(tweet.getUser().getProfileImageUrl())
+            Picasso.with(mContext).load(tweet.getUser().getProfileImageUrl())
                     .placeholder(R.mipmap.ic_wifi)
-                    .fitCenter()
+                    //.fitCenter()
                     .into(viewHolder.mImageViewProfileImage);
         }
+        viewHolder.mImageViewProfileImage.setTag(tweet.getUser().getTwitterHandle());
+        viewHolder.mImageViewReplyToTweet.setTag(tweet.getIdStr() + "@" +
+                tweet.getUser().getTwitterHandle());
+
+        viewHolder.mImageViewReTweet.setTag(tweet.getIdStr());
+        viewHolder.mImageViewLike.setTag(tweet.getIdStr());
 
         viewHolder.mTextViewTimeSend.setText(Util.getRelativeTimeAgo(tweet.getCreated_at()));
+        viewHolder.mTextViewRetweets.setText(tweet.getRetweet_count());
+        viewHolder.mTextViewLikes.setText(tweet.getFavourite_count());
     }
 
     // Clean all elements of the recycler
@@ -153,5 +171,18 @@ public class ComplexRecyclerViewArticleAdapter
     public void addAll(List<Tweet> list) {
         sTweets.addAll(list);
         notifyDataSetChanged();
+    }
+
+    /***** Creating OnItemClickListener *****/
+
+    // Define listener member variable
+    static OnReplyIconClickListener listener;
+    // Define the listener interface
+    public interface OnReplyIconClickListener {
+        void onItemClick(View itemView, int position);
+    }
+    // Define the method that allows the parent activity or fragment to define the listener
+    public void setOnItemClickListener(OnReplyIconClickListener listener) {
+        this.listener = listener;
     }
 }
