@@ -26,10 +26,10 @@ public class TwitterClient extends OAuthBaseClient {
 	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change this
 	public static final String REST_URL = "https://api.twitter.com/1.1"; // Change this, base API URL
 	public static final String REST_CONSUMER_KEY =
-			"d6pvxCCA04mHEGMZMGq4wi8WU";       // Change this
+			"enter here";       // Change this
 	public static final String REST_CONSUMER_SECRET =
-			"Bg7ZJ2kbBSbg6ekcZRTUdS9ksEAIyjSdg0PEdr1XnCLo81ieir"; // Change this
-	public static final String REST_CALLBACK_URL = "oauth://chika.space"; // Change this (here and in manifest)
+			"enter here"; // Change this
+	public static final String REST_CALLBACK_URL = "enter here"; // Change this (here and in manifest)
 	public TwitterClient(Context context) {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
 	}
